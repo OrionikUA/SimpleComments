@@ -1,6 +1,6 @@
 {
-    "name": "app_comments",
-    "short_name": "app_comments",
+    "name": "comments",
+    "short_name": "comments",
     "start_url": ".",
     "display": "minimal-ui",
     "background_color": "#0175C2",

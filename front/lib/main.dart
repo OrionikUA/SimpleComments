@@ -1,8 +1,9 @@
-import 'package:app_comments/add_service.dart';
-import 'package:app_comments/comments_service.dart';
-import 'package:app_comments/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'services/add_service.dart';
+import 'services/comments_service.dart';
+import 'main_page.dart';
 
 void main() => runApp(MyApp());
 

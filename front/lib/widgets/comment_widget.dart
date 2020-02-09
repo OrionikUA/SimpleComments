@@ -1,9 +1,10 @@
-import 'package:app_comments/add_service.dart';
-import 'package:app_comments/comment.dart';
-import 'package:app_comments/comments_service.dart';
-import 'package:app_comments/comments_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../models/comment.dart';
+import '../services/add_service.dart';
+import '../services/comments_service.dart';
+import 'comments_widget.dart';
 
 class CommentWidget extends StatefulWidget {
   final Comment comment;

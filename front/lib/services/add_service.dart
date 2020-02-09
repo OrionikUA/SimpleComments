@@ -1,6 +1,7 @@
-import 'package:app_comments/add_type.dart';
-import 'package:app_comments/comment.dart';
 import 'package:flutter/material.dart';
+
+import '../models/comment.dart';
+import '../models/add_type.dart';
 
 class AddService with ChangeNotifier{
   AddType addType;

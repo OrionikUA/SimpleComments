@@ -1,14 +1,16 @@
 import 'dart:convert';
-import 'package:app_comments/comment.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+
+import '../models/comment.dart';
 
 class CommentsService with ChangeNotifier {
   Client _client = Client();
 
   static Map<String, String> _headers = {'content-type': 'application/json'};
 
-  static const String _url = 'https://example.com/api'; //TODO insert server address
+  static const String _url = 'https://appcomments20200209081712.azurewebsites.net/api';
   static String get _commentsUrl => '$_url/comments';
 
   static String _commentsUrlWithId(int id) => '$_commentsUrl/$id';

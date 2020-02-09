@@ -1,9 +1,10 @@
-import 'package:app_comments/add_input_widget.dart';
-import 'package:app_comments/add_service.dart';
-import 'package:app_comments/add_type.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/add_type.dart';
+import '../services/add_service.dart';
+import 'add_input_widget.dart';
 import 'inner_add_widget.dart';
 
 class AddWidget extends StatefulWidget {

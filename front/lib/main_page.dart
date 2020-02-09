@@ -1,10 +1,11 @@
-import 'package:app_comments/add_widget.dart';
-import 'package:app_comments/comment.dart';
-import 'package:app_comments/comments_service.dart';
-import 'package:app_comments/comments_widget.dart';
-import 'package:app_comments/footer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'models/comment.dart';
+import 'services/comments_service.dart';
+import 'widgets/add_widget.dart';
+import 'widgets/comments_widget.dart';
+import 'widgets/footer.dart';
 
 class MainPage extends StatelessWidget {
   @override
