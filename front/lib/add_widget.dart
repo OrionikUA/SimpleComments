@@ -1,0 +1,40 @@
+import 'package:app_comments/add_input_widget.dart';
+import 'package:app_comments/add_service.dart';
+import 'package:app_comments/add_type.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'inner_add_widget.dart';
+
+class AddWidget extends StatefulWidget {
+  @override
+  _AddWidgetState createState() => _AddWidgetState();
+}
+
+class _AddWidgetState extends State<AddWidget> {
+  @override
+  Widget build(BuildContext context) {
+    var addProvider = Provider.of<AddService>(context, listen: true);
+
+    Widget commentWidget;
+    if (addProvider.addType == AddType.New) {
+      commentWidget = SizedBox();
+    } else {
+      commentWidget = InnerAddWidget(addProvider.showComment, addProvider.addType);
+    }
+
+    return Container(
+      height: 180,
+      child: new Stack(
+        children: [
+          commentWidget,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: AddInputWidget(
+                addProvider.comment.clone(), addProvider.addType),
+          ),
+        ],
+      ),
+    );
+  }
+}
