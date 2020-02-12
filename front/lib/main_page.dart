@@ -6,6 +6,7 @@ import 'services/comments_service.dart';
 import 'widgets/add_widget.dart';
 import 'widgets/comments_widget.dart';
 import 'widgets/footer.dart';
+import 'widgets/statistics.dart';
 
 class MainPage extends StatelessWidget {
   @override
@@ -17,8 +18,14 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         title: Container(
           height: 42,
-          child: Image(
-            image: AssetImage('assets/rect815.png'),
+          child: Row(
+            children: <Widget>[
+              Image(
+                image: AssetImage('assets/rect815.png'),
+              ),
+              SizedBox(width: 8,),
+              Statistics(),
+            ],
           ),
         ),
       ),

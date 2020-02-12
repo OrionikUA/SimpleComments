@@ -27,6 +27,7 @@ class CommentsService with ChangeNotifier {
         list.add(Comment.fromJson(obj));
       }
       comments = list;
+      notifyListeners();
       return list;
     } else {
       return null;
@@ -120,5 +121,38 @@ class CommentsService with ChangeNotifier {
     } else {
       return null;
     }
+  }
+
+  int get mainCommentsCount {
+    if (comments == null) return 0;
+    return comments.where((element) => element.parentId == null).length;
+  } 
+
+  int get replyCommentsCount {
+    if (comments == null) return 0;
+    int count = 0;
+    for (var mainComment in comments.where((element) => element.parentId == null)) {
+      count += _childCount(mainComment);
+    }
+    return count;
+  } 
+
+  int _childCount(Comment childs) {
+    if (childs.innerComments == null) return 0;
+    var count = childs.innerComments.length;    
+    for (var item in childs.innerComments) {
+      count += _childCount(item);
+    }
+    return count;
+  }
+
+  int get likeCommentsCount {
+    if (comments == null) return 0;
+    return comments.where((element) => element.parentId == null && element.isLike != null && element.isLike).length;
+  }
+
+  int get dislikeCommentsCount {
+    if (comments == null) return 0;
+    return comments.where((element) => element.parentId == null && element.isLike != null && !element.isLike).length;
   }
 }
