@@ -15,12 +15,15 @@ class CommentsService with ChangeNotifier {
 
   static String _commentsUrlWithId(int id) => '$_commentsUrl/$id';
 
+  static Uri _commentsUriWithId(int id) => Uri(path: '$_commentsUrl/$id');
+  static Uri get _commentsUri => Uri(path: _commentsUrl);
+
   List<Comment> comments;
 
   Future<List<Comment>> getAllComments() async {
     if (comments != null) return comments;
     List<Comment> list = [];
-    var response = await _client.get(_commentsUrl, headers: _headers);
+    var response = await _client.get(_commentsUri, headers: _headers);
     if (response.statusCode == 200) {
       List<dynamic> json = jsonDecode(response.body);
       for (Map<String, dynamic> obj in json) {
@@ -58,8 +61,7 @@ class CommentsService with ChangeNotifier {
     return false;
   }
 
-  bool _editChild(Comment child, List<Comment> innerList,
-      bool Function(Comment, Comment) func) {
+  bool _editChild(Comment child, List<Comment> innerList, bool Function(Comment, Comment) func) {
     for (var obj in innerList) {
       if (func(child, obj)) {
         return true;
@@ -71,12 +73,10 @@ class CommentsService with ChangeNotifier {
     return false;
   }
 
-  Future<Comment> createComment(String user, String description, bool isLike,
-      {int parentId}) async {
+  Future<Comment> createComment(String user, String description, bool isLike, {int parentId}) async {
     var comment = Comment.create(user, description, isLike, parentId: parentId);
     var json = jsonEncode(comment.toJson());
-    var response =
-        await _client.post(_commentsUrl, headers: _headers, body: json);
+    var response = await _client.post(_commentsUri, headers: _headers, body: json);
     if (response.statusCode == 200) {
       Map<String, dynamic> obj = jsonDecode(response.body);
       var newComment = Comment.fromJson(obj);
@@ -93,8 +93,7 @@ class CommentsService with ChangeNotifier {
   }
 
   Future<bool> deleteComment(Comment comment) async {
-    var response =
-        await _client.delete(_commentsUrlWithId(comment.id), headers: _headers);
+    var response = await _client.delete(_commentsUriWithId(comment.id), headers: _headers);
     if (response.statusCode == 200) {
       if (comment.parentId != null) {
         _editChild(comment, comments, _deleteChildFunc);
@@ -110,8 +109,7 @@ class CommentsService with ChangeNotifier {
 
   Future<Comment> changeComment(Comment comment) async {
     var json = jsonEncode(comment.toJson());
-    var response = await _client.put(_commentsUrlWithId(comment.id),
-        headers: _headers, body: json);
+    var response = await _client.put(_commentsUriWithId(comment.id), headers: _headers, body: json);
     if (response.statusCode == 200) {
       Map<String, dynamic> obj = jsonDecode(response.body);
       var newComment = Comment.fromJson(obj);
@@ -126,7 +124,7 @@ class CommentsService with ChangeNotifier {
   int get mainCommentsCount {
     if (comments == null) return 0;
     return comments.where((element) => element.parentId == null).length;
-  } 
+  }
 
   int get replyCommentsCount {
     if (comments == null) return 0;
@@ -135,11 +133,11 @@ class CommentsService with ChangeNotifier {
       count += _childCount(mainComment);
     }
     return count;
-  } 
+  }
 
   int _childCount(Comment childs) {
     if (childs.innerComments == null) return 0;
-    var count = childs.innerComments.length;    
+    var count = childs.innerComments.length;
     for (var item in childs.innerComments) {
       count += _childCount(item);
     }

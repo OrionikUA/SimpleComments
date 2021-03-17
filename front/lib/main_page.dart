@@ -11,8 +11,8 @@ import 'widgets/statistics.dart';
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var futureList = Provider.of<CommentsService>(context, listen: true)
-        .getAllComments(); //CommentsService().getAllComments();
+    var futureList =
+        Provider.of<CommentsService>(context, listen: true).getAllComments(); //CommentsService().getAllComments();
 
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +23,9 @@ class MainPage extends StatelessWidget {
               Image(
                 image: AssetImage('assets/rect815.png'),
               ),
-              SizedBox(width: 8,),
+              SizedBox(
+                width: 8,
+              ),
               Statistics(),
             ],
           ),
@@ -36,6 +38,7 @@ class MainPage extends StatelessWidget {
               builder: (ctx, sns) {
                 if (sns.connectionState == ConnectionState.done) {
                   List<Comment> list = sns.data;
+                  print(list);
                   return Stack(
                     children: [
                       CommentsWidget(list, 0),

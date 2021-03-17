@@ -58,8 +58,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                         color: Theme.of(context).accentColor,
                       ),
                       onPressed: () {
-                        Provider.of<AddService>(context, listen: false)
-                            .edit(widget.comment);
+                        Provider.of<AddService>(context, listen: false).edit(widget.comment);
                       }),
                   width: 80,
                 ),
@@ -85,7 +84,11 @@ class _CommentWidgetState extends State<CommentWidget> {
                             width: 8,
                           ),
                           InkWell(
-                            child: Icon(Icons.delete, color: Theme.of(context).accentColor, size: 16,),
+                            child: Icon(
+                              Icons.delete,
+                              color: Theme.of(context).accentColor,
+                              size: 16,
+                            ),
                             onTap: () async {
                               Provider.of<CommentsService>(context, listen: false).deleteComment(widget.comment);
                             },
@@ -98,12 +101,11 @@ class _CommentWidgetState extends State<CommentWidget> {
                         maintainSemantics: true,
                         maintainSize: true,
                         maintainState: true,
-                        visible: widget.comment.innerComments.length > 0,
+                        visible: widget.comment.innerComments != null && widget.comment.innerComments.length > 0,
                         child: InkWell(
                           child: Text(
                             _isExpanded ? "Collapse" : "Expand",
-                            style:
-                                TextStyle(color: Theme.of(context).accentColor),
+                            style: TextStyle(color: Theme.of(context).accentColor),
                           ),
                           onTap: () {
                             setState(() {
@@ -123,8 +125,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                       ),
                       onPressed: widget.level < 8
                           ? () {
-                              Provider.of<AddService>(context, listen: false)
-                                  .reply(widget.comment);
+                              Provider.of<AddService>(context, listen: false).reply(widget.comment);
                             }
                           : null),
                   width: 80,
@@ -133,9 +134,7 @@ class _CommentWidgetState extends State<CommentWidget> {
             ),
           ),
         ),
-        _isExpanded &&
-                widget.comment.innerComments != null &&
-                widget.comment.innerComments.length > 0
+        _isExpanded && widget.comment.innerComments != null && widget.comment.innerComments.length > 0
             ? CommentsWidget(widget.comment.innerComments, widget.nextLevel)
             : SizedBox(),
       ],
